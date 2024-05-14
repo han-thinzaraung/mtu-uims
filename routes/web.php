@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\YearController;
 use App\Http\Controllers\DepartmentController;
 
@@ -24,4 +25,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('year',YearController::class);
 Route::resource('department',DepartmentController::class);
+Route::resource('user',UserController::class);
+
 

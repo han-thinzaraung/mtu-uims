@@ -17,8 +17,16 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->enum('role',[0,1,2,3])->default(0)->comment('admin is 0 & agent is 1 & student is 2 & teacher is 3');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('roll_no')->nullable();
+            $table->string('ph_no')->nullable();
+            $table->string('address')->nullable();
+            $table->string('registration_no')->nullable();
+            $table->string('position')->nullable();
+            $table->foreignId('department_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('year_id')->nullable()->constrained()->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

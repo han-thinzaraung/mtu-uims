@@ -22,6 +22,15 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    public function department()
+    {
+        return $this->belongsToMany(Department::class);
+    }
+
+    public function year()
+    {
+        return $this->belongsToMany(Year::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
