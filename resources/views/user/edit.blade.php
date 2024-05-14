@@ -1,18 +1,18 @@
 @extends('dashboard.index')
-
+ 
 @section('content')
 <div class="container">
-
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                <div class="card-body align-users-center m-4">
 
-                <div class="card-body align-items-center m-4">
-                    <h3 class="text-dark mb-3"> Create User </h3>
+                <h3 class="text-dark mb-3"> Edit user </h3>
 
-                    <form action="{{ route('user.store') }}" method="post">
-                        @csrf
-
+                <form action="{{route('user.update' , $user->id)}}" method="post" enctype="multipart/form-data">
+                @method('PUT')
+                @csrf
+               
                         <div class="col-auto">
                             <label for="role">Select Role:<small class="text-danger">*</small></label>
                             <select name="role" id="role" class="form-control @error('role') is-invalid @enderror">
@@ -107,7 +107,7 @@
                                 <label for="department" class="form-label">Select Department<small class="text-danger">*</small></label><br/>
                                 @foreach($departments as $department)
                                     <select name="department" id="department" class="form-control @error('department') is-invalid @enderror">
-                                        <option value="{{ $department->id }}">{{$department->name}}</option>
+                                        <option value="0">{{$department->name}}</option>
                                     </select>
                                 @endforeach
                             </div>
@@ -116,17 +116,17 @@
                                 <label for="role" class="form-label">Academic Year<small class="text-danger">*</small></label><br/>
                                 @foreach($years as $year)
                                     <select name="year" id="year" class="form-control @error('year') is-invalid @enderror">
-                                        <option value="{{ $year->id }}">{{$year->name}}</option>
+                                        <option value="0">{{$year->name}}</option>
                                     </select>
                                 @endforeach
                             </div>
                         
-                        <div class="col-sm mt-3 p-3">
-                            <a href="{{ route('user.index') }}" class="btn btn-outline-dark">Back</a>
-                            <button type="submit" class="btn btn-outline-primary">Create</button>
-                        </div>
 
-                    </form>
+                <div class="col-sm mt-3">
+                <a href="{{ route('user.index') }}" class="btn btn-outline-dark">Back</a>
+                <button type="submit" class="btn btn-outline-primary">Update</button>
+                </div>
+                </form>
                 </div>
             </div>
         </div>

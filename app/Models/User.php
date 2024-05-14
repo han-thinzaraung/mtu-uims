@@ -24,12 +24,12 @@ class User extends Authenticatable
     ];
     public function department()
     {
-        return $this->belongsToMany(Department::class);
+        return $this->belongsTo(Department::class);
     }
 
     public function year()
     {
-        return $this->belongsToMany(Year::class);
+        return $this->belongsTo(Year::class);
     }
 
     /**
