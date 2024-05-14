@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row ">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body shadow">
 
@@ -40,17 +40,19 @@
                     
                         <thead class="table-primary">
                           <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">User Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Roll No.</th>
-                            <th scope="col">Ph No.</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Registration No.</th>
-                            <th scope="col">Position</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">Academic Year</th>
+                            <th class="text-nowrap">ID</th>
+                            <th class="text-nowrap">User Name</th>
+                            <th class="text-nowrap">Email</th>
+                            <th class="text-nowrap">Role</th>
+                            {{-- <th class="text-nowrap">Roll No.</th>
+                            <th class="text-nowrap">Ph No.</th>
+                            <th class="text-nowrap">Address</th>
+                            <th class="text-nowrap">Registration No.</th> --}}
+                            <th class="text-nowrap">Position</th>
+                            <th class="text-nowrap">Department</th>
+                            <th class="text-nowrap">Academic Year</th>
+                            <th class="text-nowrap">Action</th>
+
                           </tr>
                         </thead>
                         <tbody>
@@ -61,23 +63,25 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    @if($user->role == "0")
+                                    @if($user->role == 0)
                                     Admin
-                                    @elseif($user->role == "1")
+                                    @elseif($user->role == 1)
                                     Agent
-                                    @elseif($user->role == "2")
+                                    @elseif($user->role == 2)
                                     Student
-                                    @elseif($user->role == "3")
+                                    @elseif($user->role == 3)
                                     Teacher
                                     @endif  
                                 </td>
-                                <td>{{ $user->roll_no }}</td>
+                                {{-- <td>{{ $user->roll_no }}</td>
                                 <td>{{ $user->ph_no }}</td>
                                 <td>{{ $user->address }}</td>
-                                <td>{{ $user->registration_no }}</td>
-                                <td>{{ $user->postion }}</td>
-                                <td>{{ $user->department_id}}</td>
-                                <td>{{ $user->year->name  }}</td>
+                                <td>{{ $user->registration_no }}</td> --}}
+                                <td>{{ $user->position }}</td>
+                                <td>
+                                    {{ $user->department->name }}
+                                </td>
+                                <td>{{ $user->year->name }}</td>
                                 <td>
                                     <a href="{{ route('user.edit', $user->id) }}" class="btn btn-outline-warning">
                                       <i class="fas fa-pencil-alt"></i>
