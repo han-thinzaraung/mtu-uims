@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserYearTable extends Migration
+class AddDescriptionToDepartmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateUserYearTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_year', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('year_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('departments', function (Blueprint $table) {
+            $table->text('description')->nullable()->after('name');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateUserYearTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_year');
+        Schema::table('departments', function (Blueprint $table) {
+            $table->dropColumn('description');
+        });
     }
 }

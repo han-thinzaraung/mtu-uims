@@ -40,6 +40,7 @@ class DepartmentController extends Controller
     {
         $department = new Department();
         $department->name = $request->name;
+        $department->description = $request->description;
         $department->save();
         return redirect()->route('department.index')->with('success','New Department Name is created Successfully');
     }
@@ -77,6 +78,7 @@ class DepartmentController extends Controller
     public function update(UpdateDepartmentRequest $request, Department $department)
     {
         $department->name = $request->name;
+        $department->description = $request->description;
         $department->update();
         return redirect()->route('department.index')->with('update','Department Name is Updated Successfully');
     }

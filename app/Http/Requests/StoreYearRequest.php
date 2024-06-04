@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreYearRequest extends FormRequest
@@ -20,11 +21,19 @@ class StoreYearRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array
-     */
+    */
     public function rules()
     {
         return [
-            'name' => 'required|unique:years'
+            'name' => 'required',
+            'semester' => [
+                'required',
+                Rule::in(['semester I', 'semester II']),
+                Rule::unique('years')->where(function ($query) {
+                    return $query->where('name', $this->name);
+                }),
+            ],
         ];
     }
+
 }

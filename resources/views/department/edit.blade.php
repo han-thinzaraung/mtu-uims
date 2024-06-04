@@ -20,16 +20,17 @@
                     @error('name')
                     <div class="text-danger">*{{$message}}</div>
                     @enderror
-
                 </div>
-               
-                 
+
+                <div class="col-auto">
+                    <label  class="col-form-label">Description</label>
+                    <input type="text"  class="form-control" name="description" value="{{ $department->description }}">   
+                </div>
+                
                 <div class="col-sm mt-3">
                 <a href="{{ route('department.index') }}" class="btn btn-outline-dark">Back</a>
                 <button type="submit" class="btn btn-outline-primary">Update</button>
                 </div>
-
-
 
                 </form>
                 </div>

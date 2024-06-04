@@ -22,6 +22,10 @@
                             @enderror
 
                         </div>
+                        <div class="col-auto">
+                            <label  class="col-form-label">Description</label>
+                            <input type="text"  class="form-control @error('name') is-invalid @enderror" name="description" value="{{ old('description') }}">
+                        </div>
                        
                         <div class="col-sm mt-3">
                         <a href="{{ route('department.index') }}" class="btn btn-outline-dark">Back</a>
