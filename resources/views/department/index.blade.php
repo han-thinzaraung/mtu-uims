@@ -41,7 +41,7 @@
                         <thead class="table-primary">
                           <tr>
                             <th scope="col">ID</th>
-                            <th scope="col"Department Name></th>
+                            <th scope="col">Department Name</th>
                             <th scope="col">Action</th>
                           </tr>
                         </thead>
@@ -69,7 +69,9 @@
                         
                         </tbody>
                     </table>
-                    
+                    <div class="d-flex justify-content-end">
+                        {{ $departments->links('vendor.pagination.bootstrap-4') }}
+                    </div>
                 </div>
              
             </div>

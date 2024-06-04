@@ -16,7 +16,8 @@ class YearController extends Controller
      */
     public function index()
     {
-        $years = Year::all();
+        $years = Year::orderBy("years.id")->paginate(5);
+        //$years = Year::all();
         return view('year.index',compact('years'));
     }
 
@@ -40,6 +41,7 @@ class YearController extends Controller
     {
         $year = new Year();
         $year->name = $request->name;
+        $year->semester = $request->semester;
         $year->save();
         return redirect()->route('year.index')->with('success','New Academic Year is created Successfully');
     }
@@ -77,6 +79,7 @@ class YearController extends Controller
     public function update(UpdateYearRequest $request,Year $year)
     {
         $year->name = $request->name;
+        $year->semester = $request->semester;
         $year->update();
         return redirect()->route('year.index')->with('update','Academic Year is Updated Successfully');
     }

@@ -42,6 +42,7 @@
                           <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Academic Year Name</th>
+                            <th scope="col">Semester Name</th>
                             <th scope="col">Action</th>
                           </tr>
                         </thead>
@@ -51,6 +52,7 @@
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $year->name }}</td>
+                                <td>{{ $year->semester }}</td>
                                 <td>
                                     <a href="{{ route('year.edit', $year->id) }}" class="btn btn-outline-warning">
                                       <i class="fas fa-pencil-alt"></i>
@@ -69,7 +71,9 @@
                         
                         </tbody>
                     </table>
-                    
+                    <div class="d-flex justify-content-end">
+                        {{ $years->links('vendor.pagination.bootstrap-4') }}
+                    </div>
                 </div>
              
             </div>
