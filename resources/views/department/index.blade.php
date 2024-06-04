@@ -69,7 +69,9 @@
                         
                         </tbody>
                     </table>
-                    
+                    <div class="d-flex justify-content-end">
+                        {{ $departments->links('vendor.pagination.bootstrap-4') }}
+                    </div>
                 </div>
              
             </div>
