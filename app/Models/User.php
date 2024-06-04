@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Year;
 use App\Models\Department;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;

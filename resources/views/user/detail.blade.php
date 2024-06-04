@@ -44,9 +44,9 @@
                                 
                                 <td>{{ $user->position }}</td>
                                 
-                                <td>{{ $user->department->name }}</td>
+                                <td>{{ is_null( $user->department ) ? '' : $user->department->name }}</td>
                                
-                                <td>{{ $user->year->name  }}</td>
+                                <td>{{ is_null( $user->year ) ? '' : $user->year->name }} </td>
                             </tr>
                         </tbody>     
                     </table>

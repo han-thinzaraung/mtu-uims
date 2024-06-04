@@ -19,9 +19,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        $years = Year::all();
-        $departments = Department::all();
-        return view('user.index',compact('users','years','departments'));
+        // dd($users);
+        return view('user.index',compact('users'));
     }
 
     /**
@@ -66,6 +65,7 @@ class UserController extends Controller
         // Encrypt the password
         //$password = Hash::encrypt($validatedData['password']);
         $password =  Hash::make($request->password);
+        //$password =Crypt::encrypt($request->password);
 
         // Create and save the user
         $user = new User();
@@ -123,11 +123,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request;
-        // Validate the incoming request data
+        return $request;
+        //Validate the incoming request data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($user->id),
+            ],
             'role' => 'required|integer',
             'password' => 'required|string|min:8',
             'roll_no' => 'nullable|string|max:255',
@@ -142,6 +146,8 @@ class UserController extends Controller
 
         // Encrypt the password
         $password =  Hash::make($validatedData['password']);
+        //$password = Hash::make($request->password);
+       //$password =Crypt::encrypt($request->password);
 
 
         $user->name = $validatedData['name'];
@@ -163,7 +169,7 @@ class UserController extends Controller
         if ($request->has('department_id')) {
             $user->department()->attach($validatedData['department_id']);
         }
-
+        
         // Redirect with success message
         return redirect()->route('user.index')->with('success', 'User is Updated Successfully');
     }
