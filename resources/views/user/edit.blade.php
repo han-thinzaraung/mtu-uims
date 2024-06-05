@@ -2,13 +2,30 @@
 
 @section('content')
 <div class="container">
+    @php
+    function filterUniqueYears($years) {
+        $uniqueYears = [];
+
+        foreach ($years as $year) {
+            if (!in_array($year->name, array_column($uniqueYears, 'name'))) {
+                $uniqueYears[] = $year;
+            }
+        }
+
+        usort($uniqueYears, function($a, $b) {
+            return strcmp($a->name, $b->name);
+        });
+
+        return $uniqueYears;
+        }
+    @endphp
 
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
 
                 <div class="card-body align-items-center m-4">
-                    <h3 class="text-dark mb-3"> Create User </h3>
+                    <h3 class="text-dark mb-3"> Update User </h3>
 
                     <form action="{{ route('user.store') }}" method="post">
                         @csrf
@@ -28,7 +45,7 @@
                         </div>
                         <div class="col-auto">
                                 <label class="col-form-label"> Name<small class="text-danger">*</small></label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}">
 
                                 @error('name')
                                 <div class="text-danger">*{{$message}}</div>
@@ -36,7 +53,7 @@
                             </div>
                             <div class="col-auto">
                                 <label  class="col-form-label">Email<small class="text-danger">*</small></label>
-                                <input type="email"  class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
+                                <input type="email"  class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}">
 
                                 @error('email')
                                 <div class="text-danger">*{{$message}}</div>
@@ -44,7 +61,7 @@
                             </div>
                             <div class="col-auto">
                                 <label  class="col-form-label">Password<small class="text-danger">*</small></label>
-                                <input type="text"  class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}">
+                                <input type="text"  class="form-control @error('password') is-invalid @enderror" name="password" value="{{ $user->password }}">
 
                                 @error('password')
                                 <div class="text-danger">*{{$message}}</div>
@@ -52,7 +69,7 @@
                             </div>
                             <div class="col-auto">
                                 <label  class="col-form-label">Ph No.<small class="text-danger">*</small></label>
-                                <input type="text"  class="form-control @error('ph_no') is-invalid @enderror" name="ph_no" value="{{ old('ph_no') }}">
+                                <input type="text"  class="form-control @error('ph_no') is-invalid @enderror" name="ph_no" value="{{ $user->ph_no }}">
 
                                 @error('ph_no')
                                 <div class="text-danger">*{{$message}}</div>
@@ -60,7 +77,7 @@
                             </div>
                             <div class="col-auto">
                                 <label  class="col-form-label">Address<small class="text-danger">*</small></label>
-                                <input type="text"  class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}">
+                                <input type="text"  class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $user->address }}">
 
                                 @error('address')
                                 <div class="text-danger">*{{$message}}</div>
@@ -72,7 +89,7 @@
                             
                             <div class="col-auto">
                                 <label  class="col-form-label">Position<small class="text-danger">*</small></label>
-                                <input type="text"  class="form-control @error('position') is-invalid @enderror" name="position" value="{{ old('position') }}">
+                                <input type="text"  class="form-control @error('position') is-invalid @enderror" name="position" value="{{ $user->position }}">
 
                                 @error('position')
                                 <div class="text-danger">*{{$message}}</div>
@@ -87,7 +104,7 @@
                             
                             <div class="col-auto">
                                 <label  class="col-form-label">Roll No.<small class="text-danger">*</small></label>
-                                <input type="text"  class="form-control @error('roll_no') is-invalid @enderror" name="roll_no" value="{{ old('roll_no') }}">
+                                <input type="text"  class="form-control @error('roll_no') is-invalid @enderror" name="roll_no" value="{{ $user->roll_no}}">
 
                                 @error('roll_no')
                                 <div class="text-danger">*{{$message}}</div>
@@ -96,7 +113,7 @@
                            
                             <div class="col-auto">
                                 <label  class="col-form-label">Registration No.<small class="text-danger">*</small></label>
-                                <input type="text"  class="form-control @error('registration_no') is-invalid @enderror" name="registration_no" value="{{ old('registration_no') }}">
+                                <input type="text"  class="form-control @error('registration_no') is-invalid @enderror" name="registration_no" value="{{ $user->registration_no }}">
 
                                 @error('registration_no')
                                 <div class="text-danger">*{{$message}}</div>
@@ -105,20 +122,24 @@
                         </div>
                         <div class="mt-3 mb-2 col-auto">
                                 <label for="department" class="form-label">Select Department<small class="text-danger">*</small></label><br/>
-                                @foreach($departments as $department)
+                            
                                     <select name="department" id="department" class="form-control @error('department') is-invalid @enderror">
+                                        @foreach($departments as $department)
                                         <option value="{{ $department->id }}">{{$department->name}}</option>
+                                        @endforeach
                                     </select>
-                                @endforeach
+                                
                             </div>
 
                             <div class="mt-3 mb-2 col-auto">
                                 <label for="role" class="form-label">Academic Year<small class="text-danger">*</small></label><br/>
-                                @foreach($years as $year)
+                                
                                     <select name="year" id="year" class="form-control @error('year') is-invalid @enderror">
+                                        @foreach(filterUniqueYears($years) as $year)
                                         <option value="{{ $year->id }}">{{$year->name}}</option>
+                                        @endforeach
                                     </select>
-                                @endforeach
+                                
                             </div>
                         
                         <div class="col-sm mt-3 p-3">

@@ -1,7 +1,28 @@
 @extends('dashboard.index')
 
 @section('content')
+
+
+
 <div class="container">
+
+    @php
+        function filterUniqueYears($years) {
+        $uniqueYears = [];
+
+        foreach ($years as $year) {
+            if (!in_array($year->name, array_column($uniqueYears, 'name'))) {
+                $uniqueYears[] = $year;
+            }
+        }
+
+        usort($uniqueYears, function($a, $b) {
+            return strcmp($a->name, $b->name);
+        });
+
+        return $uniqueYears;
+        }
+    @endphp
 
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -105,20 +126,22 @@
                         </div>
                         <div class="mt-3 mb-2 col-auto">
                                 <label for="department" class="form-label">Select Department<small class="text-danger">*</small></label><br/>
-                                @foreach($departments as $department)
+                             
                                     <select name="department" id="department" class="form-control @error('department') is-invalid @enderror">
+                                        @foreach($departments as $department)
                                         <option value="{{ $department->id }}">{{$department->name}}</option>
+                                        @endforeach
                                     </select>
-                                @endforeach
                             </div>
 
                             <div class="mt-3 mb-2 col-auto">
                                 <label for="role" class="form-label">Academic Year<small class="text-danger">*</small></label><br/>
-                                @foreach($years as $year)
+                              
                                     <select name="year" id="year" class="form-control @error('year') is-invalid @enderror">
+                                        @foreach(filterUniqueYears($years) as $year)
                                         <option value="{{ $year->id }}">{{$year->name}}</option>
+                                        @endforeach
                                     </select>
-                                @endforeach
                             </div>
                         
                         <div class="col-sm mt-3 p-3">
