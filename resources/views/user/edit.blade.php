@@ -2,13 +2,30 @@
 
 @section('content')
 <div class="container">
+    @php
+    function filterUniqueYears($years) {
+        $uniqueYears = [];
+
+        foreach ($years as $year) {
+            if (!in_array($year->name, array_column($uniqueYears, 'name'))) {
+                $uniqueYears[] = $year;
+            }
+        }
+
+        usort($uniqueYears, function($a, $b) {
+            return strcmp($a->name, $b->name);
+        });
+
+        return $uniqueYears;
+        }
+    @endphp
 
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
 
                 <div class="card-body align-items-center m-4">
-                    <h3 class="text-dark mb-3"> Edit User </h3>
+                    <h3 class="text-dark mb-3"> Create User </h3>
 
                     <form action="{{ route('user.store') }}" method="post">
                         @csrf
@@ -44,7 +61,7 @@
                             </div>
                             <!-- <div class="col-auto">
                                 <label  class="col-form-label">Password<small class="text-danger">*</small></label>
-                                <input type="text"  class="form-control @error('password') is-invalid @enderror" name="password" value="{{ $user->password  }}">
+                                <input type="text"  class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}">
 
                                 @error('password')
                                 <div class="text-danger">*{{$message}}</div>
@@ -87,7 +104,7 @@
                             
                             <div class="col-auto">
                                 <label  class="col-form-label">Roll No.<small class="text-danger">*</small></label>
-                                <input type="text"  class="form-control @error('roll_no') is-invalid @enderror" name="roll_no" value="{{ $user->roll_no }}">
+                                <input type="text"  class="form-control @error('roll_no') is-invalid @enderror" name="roll_no" value="{{ old('roll_no') }}">
 
                                 @error('roll_no')
                                 <div class="text-danger">*{{$message}}</div>
@@ -104,26 +121,24 @@
                             </div>
                         </div>
                         <div class="mt-3 mb-2 col-auto">
-                            <label for="department" class="form-label">Select Department<small class="text-danger">*</small></label>
-                            <select name="department" id="department" class="form-control @error('department') is-invalid @enderror">
-                                @foreach($departments as $department)
-                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                @endforeach
-                            </select>
-
-                            @error('department')
-                                <div class="text-danger">*{{ $message }}</div>
-                            @enderror
-                        </div>
-
+                                <label for="department" class="form-label">Select Department<small class="text-danger">*</small></label><br/>
+                                
+                                    <select name="department" id="department" class="form-control @error('department') is-invalid @enderror">
+                                    @foreach($departments as $department)
+                                        <option value="{{ $department->id }}">{{$department->name}}</option>
+                                    @endforeach
+                                    </select>
+                            </div>
 
                             <div class="mt-3 mb-2 col-auto">
-                                <label for="year" class="form-label">Academic Year<small class="text-danger">*</small></label><br/>
+                                <label for="role" class="form-label">Academic Year<small class="text-danger">*</small></label><br/>
+                                
                                     <select name="year" id="year" class="form-control @error('year') is-invalid @enderror">
-                                    @foreach($years as $year)
+                                    @foreach(filterUniqueYears($years)as $year)
                                         <option value="{{ $year->id }}">{{$year->name}}</option>
                                     @endforeach
                                     </select>
+                                
                             </div>
                         
                         <div class="col-sm mt-3 p-3">

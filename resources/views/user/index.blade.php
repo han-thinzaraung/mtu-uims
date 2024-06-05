@@ -79,10 +79,10 @@
                                 <td>{{ $user->registration_no }}</td> --}}
                                 <td>{{ $user->position }}</td>
                                 <td>
-                                    {{ is_null( $user->department ) ? '' : $user->department->name }}
+                                {{ is_null( $user->department ) ? '' : $user->department->name }}
                                 </td>
                                 <td>
-                                    {{ is_null( $user->year ) ? '' : $user->year->name }} 
+                                {{ is_null( $user->year ) ? '' : $user->year->name }}
                                 </td>
                                 <td>
                                     <a href="{{ route('user.edit', $user->id) }}" class="btn btn-outline-warning">

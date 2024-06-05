@@ -134,7 +134,23 @@
                User List
               </p>
             </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="{{ route('score.create') }}" class="nav-link ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Create Admission Score
+              </p>
+            </a>
            
+          </li>
+          <li class="nav-item menu-open">
+            <a href="{{ route('score.index') }}" class="nav-link ">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               Admission Score List 
+              </p>
+            </a>
           </li>
           
         </ul>
