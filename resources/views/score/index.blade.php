@@ -36,7 +36,36 @@
     </form>
     
     <a href="{{ route('score.create') }}" class="btn btn-success mt-3">Add New Score</a>
+    <h6 class="text-primary py-3">These Scores are determined by the addition of only 4 subjects [ English, Mathematics, Chemistry and Physics. ]</h6>
     
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible" role="alert"> 
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+            {{ session('success') }}
+        </div>
+        @endif
+
+        @if(session('update'))
+        <div class="alert alert-primary alert-dismissible" role="alert"> 
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+            {{ session('update') }}
+        </div>
+        @endif
+
+        @if(session('delete'))
+        <div class="alert alert-danger alert-dismissible" role="alert"> 
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+            {{ session('delete') }}
+        </div>
+        @endif
+        
+
     <table class="table mt-3">
         <thead>
             <tr>

@@ -152,6 +152,23 @@
               </p>
             </a>
           </li>
+          <li class="nav-item menu-open">
+            <a href="{{ route('timetable.create') }}" class="nav-link ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Create Timetable
+              </p>
+            </a>
+           
+          </li>
+          <li class="nav-item menu-open">
+            <a href="{{ route('timetable.index') }}" class="nav-link ">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               Timetable List 
+              </p>
+            </a>
+          </li>
           
         </ul>
       </nav>
