@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTimetableRequest;
+use App\Http\Requests\UpdateTimetableRequest;
 use App\Models\Year;
 use App\Models\Timetable;
 use App\Models\Department;
@@ -16,7 +18,8 @@ class TimetableController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    { $departments = Department::all();
+    { 
+        $departments = Department::all();
         $years = Year::all();
     
         $query = Timetable::query();
@@ -29,13 +32,8 @@ class TimetableController extends Controller
             $query->where('year_id', $request->year_id);
         }
     
-        // if ($request->filled('semester')) {
-        //     $query->whereHas('year_id', function($q) use ($request) {
-        //         $q->where('semester', $request->semester);
-        //     });
-        //}
     
-        $timetables = $query->with('department', 'year')->paginate(10);
+        $timetables = $query->with('department', 'year')->paginate(5);
     
         return view('timetable.index', compact('timetables', 'departments', 'years'));
     }
@@ -59,7 +57,7 @@ class TimetableController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTimetableRequest $request)
     {
         //return $request;
         $timetable = new Timetable();
@@ -78,7 +76,7 @@ class TimetableController extends Controller
             }
         }
         
-            return redirect()->route('timetable.index')->with('success', 'New Timetable is Updated successfully');
+            return redirect()->route('timetable.index')->with('success', 'New Timetable is Created successfully');
     }
 
     /**
@@ -114,9 +112,9 @@ class TimetableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Timetable $timetable)
+    public function update(UpdateTimetableRequest $request, Timetable $timetable)
     {
-        //return $request;
+        
         // If new files are provided, delete existing files and update with new files
         if ($request->hasFile('files')) {
             // Delete existing files associated with the timetable
@@ -124,6 +122,7 @@ class TimetableController extends Controller
                 Storage::delete("public/gallery/{$file->file_path}");
                 $file->delete();
             }
+            //return $request;
 
             $timetable->year_id = $request->year_id;
             $timetable->department_id = $request->department_id;
@@ -138,8 +137,17 @@ class TimetableController extends Controller
                     $timetable->timetableImages()->create([
                         'file_path' => $newName,
                     ]);
+                }else {
+                    // If no new files are provided, update only the timetable information
+                    $timetable->year_id = $request->year_id;
+                    $timetable->department_id = $request->department_id;
+                    $timetable->update();
+    
+                    
                 }
             }
+            return redirect()->route('timetable.index')->with('success', 'Timetable is Updated successfully');
+
     }
 }
 

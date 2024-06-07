@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\YearController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\TimetableController;
 
@@ -30,6 +31,7 @@ Route::resource('department',DepartmentController::class);
 Route::resource('user',UserController::class);
 Route::resource('score',ScoreController::class);
 Route::resource('timetable',TimetableController::class);
+Route::resource('result',ResultController::class);
 
 
 

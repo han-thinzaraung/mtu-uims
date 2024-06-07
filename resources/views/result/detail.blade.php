@@ -5,7 +5,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
-                    <h3>Timetable Details</h3>
+                    <h3>Result File Details</h3>
                 </div>
                 <div class="card-body">
                     <div class="container mt-4">
@@ -14,7 +14,7 @@
                                 <h5>Department:</h5>
                             </div>
                             <div class="col-md-9">
-                                <p>{{ $timetable->department->name }}</p>
+                                <p>{{ $result->department->name }}</p>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -22,7 +22,7 @@
                                 <h5>Academic Year:</h5>
                             </div>
                             <div class="col-md-9">
-                                <p>{{ $timetable->year->name }}</p>
+                                <p>{{ $result->year->name }}</p>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -30,28 +30,43 @@
                                 <h5>Semester:</h5>
                             </div>
                             <div class="col-md-9">
-                                <p>{{ $timetable->year->semester }}</p>
+                                <p>{{ $result->year->semester }}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="mb-4">
-                        <h5 class="mb-4">Uploaded Files:</h5>
-                        <div class="row">
-                            @foreach ($timetable->timetableImages as $file)
-                                <div class="col-md-6 mb-2">
-                                    <img src="{{ asset('storage/gallery/'.$file->file_path) }}" alt="{{ $file->file_path }}" class="img-fluid">
-                                </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <h5>Uploaded Files:</h5>
+                        </div>
+                        <div class="col-md-9">
+                            @foreach ($result->resultFiles as $file)
+                            <div class="file-item" data-file-url="{{ asset('storage/' . $file->file_path) }}">
+                                {{-- {{ $file->file_path }} --}}  
+                                <p class="text-primary">{{ $file->file_name }} </p>
+                            </div>                         
                             @endforeach
                         </div>
-                        {{-- <div class="mt-3 d-flex justify-content-end">
-                            {{ $timetables->links('vendor.pagination.bootstrap-4') }}
-                        </div> --}}
+
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('timetable.index') }}" class="btn btn-secondary">Back to Timetables</a>
+                    <a href="{{ route('result.index') }}" class="btn btn-secondary">Back to Results</a>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.file-item').on('dblclick', function() {
+            var fileUrl = $(this).data('file-url');
+            console.log('File URL:', fileUrl); // Debugging line
+            if(fileUrl) {
+                window.open(fileUrl, '_blank');
+            } else {
+                console.error('File URL not found');
+            }
+        });
+    });
+</script>
 @endsection

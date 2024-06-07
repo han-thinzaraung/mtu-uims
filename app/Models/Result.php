@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Timetable extends Model
+class Result extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'department_id', 'year_id', 'file',
+        'department_id', 'year_id', 'file'
     ];
 
     public function department()
@@ -22,8 +21,8 @@ class Timetable extends Model
     {
         return $this->belongsTo(Year::class);
     }
-    public function timetableImages()
+    public function resultFiles()
     {
-        return $this->hasMany(TimetableImage::class);
+        return $this->hasMany(ResultFile::class);
     }
 }

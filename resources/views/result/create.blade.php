@@ -3,17 +3,9 @@
 @section('content')
 <div class="container">
     @php
-        function sortYears($years) {
-            $sortedYears = $years->toArray();
-
-            usort($sortedYears, function($a, $b) {
-                return strcmp($a['name'], $b['name']);
-            });
-
-            return $sortedYears;
-        }
-
-        $sortedYears = sortYears($years);
+    function sortYears($years) {
+        return $years->sortBy('name');
+    }
     @endphp
 
     <div class="row justify-content-center">
@@ -21,9 +13,9 @@
             <div class="card">
             
                 <div class="card-body align-items-center m-4">
-                    <h3 class="text-dark mb-3"> Create Timetable </h3>
+                    <h3 class="text-dark mb-3"> Create Result Files </h3>
 
-                    <form action="{{ route('timetable.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('result.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="mt-3 mb-2 col-auto">
@@ -38,13 +30,13 @@
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
-                            @enderror
+                                @enderror
                         </div>
 
                         <div class="mt-3 mb-2 col-auto">
                             <label for="year_id" class="form-label">Academic Year<small class="text-danger">*</small></label><br/>
                             <select name="year_id" id="year_id" class="form-control @error('year_id') is-invalid @enderror">
-                                @foreach($sortedYears as $year)
+                                @foreach(sortYears($years) as $year)
                                     <option value="{{ $year['id'] }}">{{ $year['name'] }} - {{ $year['semester'] }}</option>
                                 @endforeach
                             </select>
@@ -67,7 +59,7 @@
 
                   
                         <div class="col-sm mt-3">
-                            <a href="{{ route('timetable.index') }}" class="btn btn-outline-dark">Back</a>
+                            <a href="{{ route('result.index') }}" class="btn btn-outline-dark">Back</a>
                             <button type="submit" class="btn btn-outline-primary">Create</button>
                         </div> 
             

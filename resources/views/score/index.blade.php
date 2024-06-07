@@ -102,5 +102,8 @@
             @endforeach                
         </tbody>
     </table>
+    <div class="d-flex justify-content-end">
+        {{ $scores->links('vendor.pagination.bootstrap-4') }}
+    </div>
 </div>
 @endsection

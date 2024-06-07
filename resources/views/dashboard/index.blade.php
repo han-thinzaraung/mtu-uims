@@ -169,6 +169,23 @@
               </p>
             </a>
           </li>
+          <li class="nav-item menu-open">
+            <a href="{{ route('result.create') }}" class="nav-link ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Create Result File
+              </p>
+            </a>
+           
+          </li>
+          <li class="nav-item menu-open">
+            <a href="{{ route('result.index') }}" class="nav-link ">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               Result File List 
+              </p>
+            </a>
+          </li>
           
         </ul>
       </nav>

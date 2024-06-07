@@ -21,9 +21,11 @@ class ScoreController extends Controller
         $years = Year::all();
         $selectedYear = $request->input('year');
 
-        $scores = Score::when($selectedYear, function($query, $year) {
-            return $query->where('year_id', $year);
-        })->get();
+        $scoresQuery = Score::when($selectedYear, function($query, $year) {
+            return $query
+            ->where('year_id', $year);
+        });
+        $scores = $scoresQuery->paginate(5); 
 
         return view('score.index', compact('scores', 'years', 'selectedYear'));
     }
@@ -79,7 +81,7 @@ class ScoreController extends Controller
     public function edit(Score $score)
     {
         $years = Year::all();
-        return view('score.edit', compact('years','score'));
+        return view('score.edit', compact('departments','years','score'));
     }
 
     /**
