@@ -86,17 +86,21 @@
                         <td>{{ $score->highest_score }}</td>
                         <td>{{ $score->lowest_score }}</td>
                         <td>
+                        @if(auth()->user()->role == '0' || auth()->user()->role == '1')
                             <a href="{{ route('score.edit', $score->id) }}" class="btn btn-outline-warning">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
+                        @endif
                             <a href="{{ route('score.show', $score->id) }}" class="btn btn-outline-primary">
                                 <i class="fas fa-info"></i>
                             </a>
+                        @if(auth()->user()->role == '0')
                             <form method="post" action = "{{ route('score.destroy', $score->id) }}" class="d-inline-block">
                             @method('delete')
                             @csrf
                             <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete?')"><i class="fas fa-trash-alt"></i></button>
                             </form>
+                        @endif
                         </td> 
                     </tr> 
             @endforeach                

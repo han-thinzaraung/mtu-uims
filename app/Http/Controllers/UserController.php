@@ -7,6 +7,7 @@ use App\Models\Year;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 
@@ -19,9 +20,21 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        // dd($users);
-        return view('user.index',compact('users'));
+
+        //dd (auth()->user()->role);
+
+        if (auth()->user()->role == '3') {
+            // For Teacher role, filter only students and teachers
+            $users = User::whereIn('role', [3,4])->paginate(5);
+        } else if (auth()->user()->role == '2') {
+            // For Student role, filter only students
+            $users = User::where('role', 3)->paginate(5);
+        } else {
+            // For Admin or other roles, show all users
+            $users = User::paginate(5);
+        }
+
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -65,8 +78,8 @@ class UserController extends Controller
 
         // Encrypt the password
         //$password = Hash::encrypt($validatedData['password']);
-        // $password =  Hash::make($request->password);
-        $password =Crypt::encrypt($validatedData['password']);
+        $password =  Hash::make($request->password);
+        // $password =Crypt::encrypt($request->password);
 
         // Create and save the user
         $user = new User();
@@ -144,9 +157,9 @@ class UserController extends Controller
         'department_id' => 'nullable|exists:departments,id',
     ]);
 
-    if ($validatedData['password']) {
-        $user->password = Crypt::encrypt($validatedData['password']);
-    }
+    // if ($validatedData['password']) {
+    //     $user->password = Crypt::encrypt($validatedData['password']);
+    // }
 
     $user->name = $validatedData['name'];
     $user->email = $validatedData['email'];

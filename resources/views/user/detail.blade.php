@@ -55,6 +55,10 @@
                                         <td>{{ $user->address }}</td>
                                     </tr>
                                     <tr>
+                                        <th scope="row">Registration Number:</th>
+                                        <td>{{ $user->registration_no }}</td>
+                                    </tr>
+                                    <tr>
                                         <th scope="row">Position:</th>
                                         <td>{{ $user->position }}</td>
                                     </tr>

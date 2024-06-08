@@ -19,25 +19,38 @@ class ResultController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        $departments = Department::all();
-        $years = Year::all();
-    
-        $query = Result::query();
-    
-        if ($request->filled('department_id')) {
-            $query->where('department_id', $request->department_id);
-        }
-    
-        if ($request->filled('year_id')) {
-            $query->where('year_id', $request->year_id);
-        }
-    
-    
-        $results = $query->with('department', 'year')->paginate(5);
-    
-        return view('result.index', compact('results', 'departments', 'years'));
+{ 
+    $departments = Department::all();
+    $years = Year::all();
+
+    $query = Result::query();
+
+    // Check the authenticated user's role
+    $role = auth()->user()->role;
+
+    // Restrict department list based on user's role
+    if ($role == '2') { // For Student role
+        $query->where('department_id', auth()->user()->department_id);
+    } elseif ($role == '3') { // For Teacher role
+        $query->whereHas('department', function ($q) {
+            $q->whereIn('id', [auth()->user()->department_id]);
+        });
     }
+
+    if ($request->filled('department_id')) {
+        $query->where('department_id', $request->department_id);
+    }
+
+    if ($request->filled('year_id')) {
+        $query->where('year_id', $request->year_id);
+    }
+
+
+    $results = $query->with('department', 'year')->paginate(5);
+
+    return view('result.index', compact('results', 'departments', 'years'));
+}
+
 
     /**
      * Show the form for creating a new resource.

@@ -81,7 +81,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-         
+          @if(auth()->user()->role == '0' || auth()->user()->role == '1')
           <li class="nav-item menu-open">
             <a href="{{ route('year.create') }}" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -89,6 +89,7 @@
                 Create Academic Year
               </p>
             </a>
+          @endif
            
           </li>
           <li class="nav-item menu-open">
@@ -98,7 +99,7 @@
                Academic Year List
               </p>
             </a>
-           
+          @if(auth()->user()->role == '0' || auth()->user()->role == '1')
           </li>
           <li class="nav-item menu-open">
             <a href="{{ route('department.create') }}" class="nav-link ">
@@ -107,7 +108,7 @@
                 Create Department 
               </p>
             </a>
-           
+          @endif
           </li>
           <li class="nav-item menu-open">
             <a href="{{ route('department.index') }}" class="nav-link ">
@@ -116,7 +117,7 @@
                Department List
               </p>
             </a>
-           
+          @if(auth()->user()->role == '0' || auth()->user()->role == '1')
           </li>
           <li class="nav-item menu-open">
             <a href="{{ route('user.create') }}" class="nav-link ">
@@ -125,6 +126,7 @@
                 Create User 
               </p>
             </a>
+            @endif
            
           </li>
           <li class="nav-item menu-open">
@@ -135,6 +137,8 @@
               </p>
             </a>
           </li>
+
+          @if(auth()->user()->role == '0' || auth()->user()->role == '1')
           <li class="nav-item menu-open">
             <a href="{{ route('score.create') }}" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -142,6 +146,7 @@
                 Create Admission Score
               </p>
             </a>
+            @endif
            
           </li>
           <li class="nav-item menu-open">
@@ -152,6 +157,7 @@
               </p>
             </a>
           </li>
+          @if(auth()->user()->role == '0' || auth()->user()->role == '1')
           <li class="nav-item menu-open">
             <a href="{{ route('timetable.create') }}" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -159,8 +165,9 @@
                 Create Timetable
               </p>
             </a>
-           
           </li>
+          @endif
+
           <li class="nav-item menu-open">
             <a href="{{ route('timetable.index') }}" class="nav-link ">
               <i class="nav-icon fas fa-th"></i>
@@ -169,6 +176,7 @@
               </p>
             </a>
           </li>
+          @if(auth()->user()->role == '0' || auth()->user()->role == '1')
           <li class="nav-item menu-open">
             <a href="{{ route('result.create') }}" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -176,8 +184,9 @@
                 Create Result File
               </p>
             </a>
-           
           </li>
+          @endif
+
           <li class="nav-item menu-open">
             <a href="{{ route('result.index') }}" class="nav-link ">
               <i class="nav-icon fas fa-th"></i>
@@ -186,6 +195,7 @@
               </p>
             </a>
           </li>
+          @if(auth()->user()->role == '0' || auth()->user()->role == '1')
           <li class="nav-item menu-open">
             <a href="{{ route('news.create') }}" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -193,6 +203,7 @@
                 Create News & Events
               </p>
             </a>
+           @endif
            
           </li>
           <li class="nav-item menu-open">

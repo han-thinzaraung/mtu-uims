@@ -92,17 +92,21 @@
                             @endforeach
                         </td>                  
                         <td>
+                        @if(auth()->user()->role == '0' || auth()->user()->role == '1')
                             <a href="{{ route('result.edit', $result->id) }}" class="btn btn-outline-warning">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
+                        @endif
                             <a href="{{ route('result.show', $result->id) }}" class="btn btn-outline-primary">
                                 <i class="fas fa-info"></i>
                             </a>
+                        @if(auth()->user()->role == '0')
                             <form method="post" action = "{{ route('result.destroy', $result->id) }}" class="d-inline-block">
                             @method('delete')
                             @csrf
                             <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete?')"><i class="fas fa-trash-alt"></i></button>
                             </form>
+                        @endif
                         </td>  
                     </tr>
                 @endforeach

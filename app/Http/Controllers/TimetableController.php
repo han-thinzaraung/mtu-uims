@@ -18,25 +18,39 @@ class TimetableController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    { 
-        $departments = Department::all();
-        $years = Year::all();
-    
-        $query = Timetable::query();
-    
-        if ($request->filled('department_id')) {
-            $query->where('department_id', $request->department_id);
-        }
-    
-        if ($request->filled('year_id')) {
-            $query->where('year_id', $request->year_id);
-        }
-    
-    
-        $timetables = $query->with('department', 'year')->paginate(5);
-    
-        return view('timetable.index', compact('timetables', 'departments', 'years'));
+{ 
+    $departments = Department::all();
+    $years = Year::all();
+
+    $query = Timetable::query();
+
+    // Check the authenticated user's role
+    $role = auth()->user()->role;
+
+    // Restrict department list based on user's role
+    if ($role == '2') { // For Student role
+        $query->whereHas('department', function ($q) {
+            $q->where('id', auth()->user()->department_id);
+        });
+    } elseif ($role == '3') { // For Teacher role
+        $query->whereHas('department', function ($q) {
+            $q->whereIn('id', [auth()->user()->department_id]);
+        });
     }
+
+    if ($request->filled('department_id')) {
+        $query->where('department_id', $request->department_id);
+    }
+
+    if ($request->filled('year_id')) {
+        $query->where('year_id', $request->year_id);
+    }
+
+
+    $timetables = $query->with('department', 'year')->paginate(5);
+
+    return view('timetable.index', compact('timetables', 'departments', 'years'));
+}
 
     /**
      * Show the form for creating a new resource.

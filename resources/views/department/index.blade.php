@@ -52,17 +52,22 @@
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $department->name }}</td>
                                 <td>
+                                @if(auth()->user()->role == '0' || auth()->user()->role == '1')
                                     <a href="{{ route('department.edit', $department->id) }}" class="btn btn-outline-warning">
                                       <i class="fas fa-pencil-alt"></i>
                                     </a>
+                                @endif
+
                                     <a href="{{ route('department.show', $department->id) }}" class="btn btn-outline-primary">
                                         <i class="fas fa-info"></i>
                                     </a>
+                                @if(auth()->user()->role == '0')
                                    <form method="post" action = "{{ route('department.destroy', $department->id) }}" class="d-inline-block">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete?')"><i class="fas fa-trash-alt"></i></button>
                                    </form>
+                                @endif
                                 </td> 
                             </tr> 
                             @endforeach
