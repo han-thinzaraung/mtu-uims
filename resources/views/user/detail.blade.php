@@ -5,54 +5,75 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body shadow">
-                    <h3 class="text-dark mb-3"> User Detail </h3>
-                    <table class="table">
-                        <thead class="table-primary">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">User Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Ph No.</th>
-                            <th scope="col">Address</th>
-                            
-                            <th scope="col">Position</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">Academic Year</th>
-                          </tr>
-                        </thead>
-                        <tbody>   
-                        
-                            <tr>
-                                <th scope="row">{{ $user->id }}</th>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>
-                                    @if($user->role == "0")
-                                    Admin
-                                    @elseif($user->role == "1")
-                                    Agent
-                                    @elseif($user->role == "2")
-                                    Student
-                                    @elseif($user->role == "3")
-                                    Teacher
-                                    @endif  
-                                </td>
-                                
-                                <td>{{ $user->ph_no }}</td>
-                                <td>{{ $user->address }}</td>
-                                
-                                <td>{{ $user->position }}</td>
-                                
-                                <td>{{ is_null( $user->department ) ? '' : $user->department->name }}</td>
-                               
-                                <td>{{ is_null( $user->year ) ? '' : $user->year->name }} </td>
-                            </tr>
-                        </tbody>     
-                    </table>
+                    <h3 class="text-dark mb-3">User Detail</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <!-- <tr>
+                                        <th scope="row">ID</th>
+                                        <td>{{ $user->id }}</td>
+                                    </tr> -->
+                                    <tr>
+                                        <th scope="row">User Name:</th>
+                                        <td>{{ $user->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Email:</th>
+                                        <td>{{ $user->email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Role:</th>
+                                        <td>
+                                            @if($user->role == "0")
+                                            Admin
+                                            @elseif($user->role == "1")
+                                            Agent
+                                            @elseif($user->role == "2")
+                                            Student
+                                            @elseif($user->role == "3")
+                                            Teacher
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Roll Number:</th>
+                                        <td>{{ $user->roll_no }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Ph Number:</th>
+                                        <td>{{ $user->ph_no }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Address:</th>
+                                        <td>{{ $user->address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Position:</th>
+                                        <td>{{ $user->position }}</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th scope="row">Department:</th>
+                                        <td>{{ is_null( $user->department ) ? '' : $user->department->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Academic Year:</th>
+                                        <td>{{ is_null( $user->year ) ? '' : $user->year->name }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div class="mb-4">
                         <a href="{{ route('user.index') }}" class="btn btn-outline-dark">Back</a>
-                    </div>       
+                    </div>
                 </div>
             </div>
         </div>

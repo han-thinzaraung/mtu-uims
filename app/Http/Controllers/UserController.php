@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Year;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 
@@ -44,7 +45,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        //return $request;
         // Validate the incoming request data
         $request->validate([
             'name' => 'required|string|max:255',
@@ -64,8 +65,8 @@ class UserController extends Controller
 
         // Encrypt the password
         //$password = Hash::encrypt($validatedData['password']);
-        $password =  Hash::make($request->password);
-        //$password =Crypt::encrypt($request->password);
+        // $password =  Hash::make($request->password);
+        $password =Crypt::encrypt($validatedData['password']);
 
         // Create and save the user
         $user = new User();
@@ -122,57 +123,47 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        return $request;
-        //Validate the incoming request data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => [
-                'required',
-                'email',
-                Rule::unique('users')->ignore($user->id),
-            ],
-            'role' => 'required|integer',
-            'password' => 'required|string|min:8',
-            'roll_no' => 'nullable|string|max:255',
-            'ph_no' => 'nullable|string|max:255',
-            'address' => 'nullable|string|max:255',
-            'registration_no' => 'nullable|string|max:255',
-            'position' => 'nullable|string|max:255',
-            'year_id' => 'nullable|exists:years,id',
-            'department_id' => 'nullable|exists:departments,id',
-        ]);
+{
+    $user = User::findOrFail($id);
 
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => [
+            'required',
+            'email',
+            Rule::unique('users')->ignore($user->id),
+        ],
+        'role' => 'required|integer',
+        'password' => 'nullable|string|min:8',
+        'roll_no' => 'nullable|string|max:255',
+        'ph_no' => 'nullable|string|max:255',
+        'address' => 'nullable|string|max:255',
+        'registration_no' => 'nullable|string|max:255',
+        'position' => 'nullable|string|max:255',
+        'year_id' => 'nullable|exists:years,id',
+        'department_id' => 'nullable|exists:departments,id',
+    ]);
 
-        // Encrypt the password
-        $password =  Hash::make($validatedData['password']);
-        //$password = Hash::make($request->password);
-       //$password =Crypt::encrypt($request->password);
-
-
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->role = $validatedData['role'];
-        $user->password = $password;
-        $user->roll_no = $validatedData['roll_no'] ?? null;
-        $user->ph_no = $validatedData['ph_no'] ?? null;
-        $user->address = $validatedData['address'] ?? null;
-        $user->registration_no = $validatedData['registration_no'] ?? null;
-        $user->position = $validatedData['position'] ?? null;
-        $user->update();  // Save the user to the database first
-
-        // Attach year and department after saving the user
-        if ($request->has('year_id')) {
-            $user->year()->attach($validatedData['year_id']);
-        }
-
-        if ($request->has('department_id')) {
-            $user->department()->attach($validatedData['department_id']);
-        }
-        
-        // Redirect with success message
-        return redirect()->route('user.index')->with('success', 'User is Updated Successfully');
+    if ($validatedData['password']) {
+        $user->password = Crypt::encrypt($validatedData['password']);
     }
+
+    $user->name = $validatedData['name'];
+    $user->email = $validatedData['email'];
+    $user->role = $validatedData['role'];
+    $user->roll_no = $validatedData['roll_no'] ?? null;
+    $user->ph_no = $validatedData['ph_no'] ?? null;
+    $user->address = $validatedData['address'] ?? null;
+    $user->registration_no = $validatedData['registration_no'] ?? null;
+    $user->position = $validatedData['position'] ?? null;
+    $user->year_id = $validatedData['year_id'] ?? null;
+    $user->department_id = $validatedData['department_id'] ?? null;
+
+    $user->update();
+
+    return redirect()->route('user.index')->with('success', 'User is Updated Successfully');
+}
+
 
     /**
      * Remove the specified resource from storage.

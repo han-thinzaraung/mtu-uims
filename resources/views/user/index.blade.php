@@ -48,7 +48,7 @@
                             <th class="text-nowrap">Ph No.</th>
                             <th class="text-nowrap">Address</th>
                             <th class="text-nowrap">Registration No.</th> --}}
-                            <th class="text-nowrap">Position</th>
+                            <!-- <th class="text-nowrap">Position</th> -->
                             <th class="text-nowrap">Department</th>
                             <th class="text-nowrap">Academic Year</th>
                             <th class="text-nowrap">Action</th>
@@ -73,11 +73,11 @@
                                     Teacher
                                     @endif  
                                 </td>
-                                {{-- <td>{{ $user->roll_no }}</td>
+                                <!-- <td>{{ $user->roll_no }}</td>
                                 <td>{{ $user->ph_no }}</td>
                                 <td>{{ $user->address }}</td>
-                                <td>{{ $user->registration_no }}</td> --}}
-                                <td>{{ $user->position }}</td>
+                                <td>{{ $user->registration_no }}</td>
+                                <td>{{ $user->position }}</td> -->
                                 <td>
                                 {{ is_null( $user->department ) ? '' : $user->department->name }}
                                 </td>
