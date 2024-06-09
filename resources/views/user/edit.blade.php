@@ -56,13 +56,13 @@
                                 <div class="text-danger">*{{$message}}</div>
                             @enderror
                         </div>
-                        <!-- <div class="col-auto">
+                        <div class="col-auto">
                             <label class="col-form-label">Password<small class="text-danger">*</small></label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Leave blank to keep current password">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Leave blank to keep current password" value="{{ decrypt($user->password ) }}">
                             @error('password')
                                 <div class="text-danger">*{{$message}}</div>
                             @enderror
-                        </div> -->
+                        </div>
                         <div class="col-auto">
                             <label class="col-form-label">Ph No.<small class="text-danger">*</small></label>
                             <input type="text" class="form-control @error('ph_no') is-invalid @enderror" name="ph_no" value="{{ old('ph_no', $user->ph_no) }}">

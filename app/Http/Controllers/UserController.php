@@ -78,8 +78,8 @@ class UserController extends Controller
 
         // Encrypt the password
         //$password = Hash::encrypt($validatedData['password']);
-        $password =  Hash::make($request->password);
-        // $password =Crypt::encrypt($request->password);
+        // $password =  Hash::make($request->password);
+        $password =Crypt::encrypt($request->password);
 
         // Create and save the user
         $user = new User();
@@ -157,9 +157,9 @@ class UserController extends Controller
         'department_id' => 'nullable|exists:departments,id',
     ]);
 
-    // if ($validatedData['password']) {
-    //     $user->password = Crypt::encrypt($validatedData['password']);
-    // }
+    if ($validatedData['password']) {
+        $user->password = Crypt::encrypt($validatedData['password']);
+    }
 
     $user->name = $validatedData['name'];
     $user->email = $validatedData['email'];

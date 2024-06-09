@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\YearController;
@@ -26,14 +28,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('year',YearController::class);
-Route::resource('department',DepartmentController::class);
-Route::resource('user',UserController::class);
-Route::resource('score',ScoreController::class);
-Route::resource('timetable',TimetableController::class);
-Route::resource('result',ResultController::class);
-Route::resource('news',NewsController::class);
+// Grouping routes that need authentication
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::resource('year', YearController::class);
+    Route::resource('department', DepartmentController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('score', ScoreController::class);
+    Route::resource('timetable', TimetableController::class);
+    Route::resource('result', ResultController::class);
+    Route::resource('news', NewsController::class);
+});
 
 
 
