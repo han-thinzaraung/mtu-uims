@@ -8,6 +8,14 @@
                 <div class="card-body shadow">
 
                     <h3 class="text-dark mb-3"> User List </h3>
+                    <!-- <form action="{{ route('user.index') }}" method="GET" class="mb-3">
+                        <div class="input-group">
+                            <input type="text" name="query" class="form-control" placeholder="Search by name" value="{{ request('query') }}">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form> -->
 
                     @if(session('success'))
                     <div class="alert alert-success alert-dismissible" role="alert"> 

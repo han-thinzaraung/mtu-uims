@@ -18,7 +18,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
         //dd (auth()->user()->role);
@@ -35,6 +35,24 @@ class UserController extends Controller
         }
 
         return view('user.index', compact('users'));
+
+        // $query = $request->input('query');
+
+        // if (auth()->user()->role == '3') {
+        //     $usersQuery = User::whereIn('role', [3, 4]);
+        // } else if (auth()->user()->role == '2') {
+        //     $usersQuery = User::where('role', 3);
+        // } else {
+        //     $usersQuery = User::query();
+        // }
+    
+        // if ($query) {
+        //     $users = $usersQuery->search($query)->paginate(5);
+        // } else {
+        //     $users = $usersQuery->paginate(5);
+        // }
+    
+        // return view('user.index', compact('users'));
     }
 
     /**

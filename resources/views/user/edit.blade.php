@@ -125,13 +125,13 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-auto">
-                            <label class="col-form-label">Registration No.<small class="text-danger">*</small></label>
-                            <input type="text" class="form-control @error('registration_no') is-invalid @enderror" name="registration_no" value="{{ $user->registration_no }}">
-                            @error('registration_no')
-                                <div class="text-danger">*{{$message}}</div>
-                            @enderror
+                            <div class="col-auto">
+                                <label class="col-form-label">Registration No.<small class="text-danger">*</small></label>
+                                <input type="text" class="form-control @error('registration_no') is-invalid @enderror" name="registration_no" value="{{ $user->registration_no }}">
+                                @error('registration_no')
+                                    <div class="text-danger">*{{$message}}</div>
+                                @enderror
+                            </div>
                         </div>
                         <div class="mt-3 mb-2 col-auto">
                             <label for="department_id" class="form-label">Select Department<small class="text-danger">*</small></label><br/>
