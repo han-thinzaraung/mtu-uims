@@ -25,14 +25,15 @@ class UserController extends Controller
 
         if (auth()->user()->role == '3') {
             // For Teacher role, filter only students and teachers
-            $users = User::whereIn('role', [3,4])->paginate(5);
+            $users = User::whereIn('role', [3, 4])->get();
         } else if (auth()->user()->role == '2') {
             // For Student role, filter only students
-            $users = User::where('role', 3)->paginate(5);
+            $users = User::where('role', 3)->get();
         } else {
             // For Admin or other roles, show all users
-            $users = User::paginate(5);
+            $users = User::all();
         }
+        
 
         return view('user.index', compact('users'));
 

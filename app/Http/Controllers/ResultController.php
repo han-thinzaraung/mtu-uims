@@ -6,6 +6,9 @@ use App\Models\Year;
 use App\Models\Result;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Mail\ResultNotification;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreYearRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreResultRequest;
@@ -59,10 +62,21 @@ class ResultController extends Controller
      */
     public function create()
     {
+        // $users = User::all(); // Adjust the query as needed
+
+        // foreach ($users as $user) {
+        //     Mail::to($user->email)->send(new ResultNotification());
+        // }
+        
+    
+
         $departments = Department::all();
         $years = Year::all();
 
+       
         return view('result.create', compact('departments', 'years'));
+
+       
 
     }
 
@@ -90,6 +104,8 @@ class ResultController extends Controller
                   ]);
               }
           }
+
+        Mail::to('myatkhine257@gmail.com')->send(new ResultNotification());
           
               return redirect()->route('result.index')->with('success', 'New Result File is Created successfully');
     }
