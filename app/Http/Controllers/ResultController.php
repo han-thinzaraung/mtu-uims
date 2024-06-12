@@ -7,6 +7,7 @@ use App\Models\Result;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Mail\ResultNotification;
+use App\Jobs\SendResultNotification;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreYearRequest;
@@ -105,7 +106,14 @@ class ResultController extends Controller
               }
           }
 
-        Mail::to('myatkhine257@gmail.com')->send(new ResultNotification());
+        // Mail::to('myatkhine257@gmail.com')->send(new ResultNotification());
+
+         // Get the users to notify
+            $users = User::all(); 
+
+            foreach ($users as $user) {
+                SendResultNotification::dispatch($user);
+            }
           
               return redirect()->route('result.index')->with('success', 'New Result File is Created successfully');
     }
