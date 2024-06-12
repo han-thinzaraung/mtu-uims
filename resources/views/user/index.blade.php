@@ -44,7 +44,7 @@
                     </div>
                     @endif
                   
-                    <table class="table">
+                    <table class="table" id="userTable">
                     
                         <thead class="table-primary">
                           <tr>
@@ -114,9 +114,9 @@
                         
                         </tbody>
                     </table>
-                    <div class="d-flex justify-content-end">
+                    {{-- <div class="d-flex justify-content-end">
                         {{ $users->links('vendor.pagination.bootstrap-4') }}
-                    </div>
+                    </div> --}}
                 </div>
              
             </div>
@@ -124,3 +124,11 @@
     </div>
 </div>
 @endsection
+
+@push('dataTable')
+    <script>
+        $(document).ready(function() {
+            new DataTable('#userTable');
+        });
+    </script>
+@endpush

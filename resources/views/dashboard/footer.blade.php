@@ -60,3 +60,8 @@
 <script src="{{ asset('dist/js/pages/dashboard.js ')}}"></script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+{{-- Data Table --}}
+<script src={{ asset('datatable/datatables.js')}}></script>
+
+@stack('dataTable')
