@@ -81,6 +81,8 @@
     </div>
 
     <!-- Create New Timetable Link -->
+    @if(auth()->user()->role == '0' || auth()->user()->role == '1')
     <a href="{{ route('news.create') }}" class="btn btn-primary">Create New News & Event</a>
+    @endif
 </div>
 @endsection

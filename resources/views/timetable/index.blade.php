@@ -114,8 +114,10 @@
             {{ $timetables->links('vendor.pagination.bootstrap-4') }}
         </div>
     </div>
-
+    
     <!-- Create New Timetable Link -->
+    @if(auth()->user()->role == '0' || auth()->user()->role == '1')
     <a href="{{ route('timetable.create') }}" class="btn btn-primary">Create New Timetable</a>
+    @endif
 </div>
 @endsection

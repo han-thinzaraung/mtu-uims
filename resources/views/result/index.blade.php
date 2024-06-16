@@ -118,7 +118,9 @@
     </div>
 
     <!-- Create New Result Link -->
+    @if(auth()->user()->role == '0' || auth()->user()->role == '1')
     <a href="{{ route('result.create') }}" class="btn btn-primary">Create New Result File</a>
+    @endif
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>

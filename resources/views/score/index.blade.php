@@ -34,8 +34,9 @@
         </div>
         <button type="submit" class="btn btn-primary">Filter</button>
     </form>
-    
+    @if(auth()->user()->role == '0' || auth()->user()->role == '1')
     <a href="{{ route('score.create') }}" class="btn btn-success mt-3">Add New Score</a>
+    @endif
     <h6 class="text-primary py-3">These Scores are determined by the addition of only 4 subjects [ English, Mathematics, Chemistry and Physics. ]</h6>
     
         @if(session('success'))
