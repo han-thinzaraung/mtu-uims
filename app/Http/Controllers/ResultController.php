@@ -109,11 +109,11 @@ class ResultController extends Controller
         // Mail::to('myatkhine257@gmail.com')->send(new ResultNotification());
 
          // Get the users to notify
-            $users = User::all(); 
+            // $users = User::all(); 
 
-            foreach ($users as $user) {
-                SendResultNotification::dispatch($user);
-            }
+            // foreach ($users as $user) {
+            //     SendResultNotification::dispatch($user);
+            // }
           
               return redirect()->route('result.index')->with('success', 'New Result File is Created successfully');
     }

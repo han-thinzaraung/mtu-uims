@@ -5,7 +5,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
-                    <h3>News & Events Details</h3>
+                    <h3>News & Events Detail</h3>
                 </div>
                 <div class="card-body">
                     <div class="container mt-4">
