@@ -18,6 +18,35 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+    
+            navLinks.forEach(function (link) {
+                link.addEventListener("click", function (event) {
+                    // Remove active class from all nav links
+                    navLinks.forEach(function (navLink) {
+                        navLink.classList.remove("active");
+                    });
+    
+                    // Add active class to the clicked nav link
+                    this.classList.add("active");
+    
+                    // Get the target section ID from the href attribute
+                    var targetId = this.getAttribute("href");
+    
+                    // Scroll to the target section
+                    var targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <div id="app">
