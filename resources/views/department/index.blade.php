@@ -46,10 +46,16 @@
                           </tr>
                         </thead>
                         <tbody>
+                            @php
+                            $startIndex = ($departments->currentPage() - 1) * $departments->perPage() + 1;
+                                if ($departments->currentPage() > 1) {
+                                    $startIndex = ($departments->currentPage() - 1) * $departments->perPage() + 1;
+                                }
+                            @endphp
                             
-                            @foreach ($departments as $department)
+                            @foreach ($departments as $index => $department)
                             <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
+                                <th scope="row">{{ $startIndex + $loop->index }}</th>
                                 <td>{{ $department->name }}</td>
                                 <td>
                                 @if(auth()->user()->role == '0' || auth()->user()->role == '1')

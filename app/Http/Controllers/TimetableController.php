@@ -18,7 +18,7 @@ class TimetableController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-{ 
+    { 
     $departments = Department::all();
     $years = Year::all();
 

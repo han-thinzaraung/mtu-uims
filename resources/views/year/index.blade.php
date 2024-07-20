@@ -47,10 +47,16 @@
                           </tr>
                         </thead>
                         <tbody>
-                            
-                            @foreach ($years as $year)
+                            @php
+                            $startIndex = ($years->currentPage() - 1) * $years->perPage() + 1;
+                                if ($years->currentPage() > 1) {
+                                    $startIndex = ($years->currentPage() - 1) * $years->perPage() + 1;
+                                }
+                            @endphp
+
+                            @foreach ($years as $index => $year)
                             <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
+                                <th scope="row">{{ $startIndex + $loop->index }}</th>
                                 <td>{{ $year->name }}</td>
                                 <td>{{ $year->semester }}</td>
                                 <td>

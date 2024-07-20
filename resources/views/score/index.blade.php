@@ -79,9 +79,15 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($scores as $score)
+            @php
+                $startIndex = ($scores->currentPage() - 1) * $scores->perPage() + 1;
+                    if ($scores->currentPage() > 1) {
+                        $startIndex = ($scores->currentPage() - 1) * $scores->perPage() + 1;
+                    }
+                @endphp
+                @foreach ($scores as $index => $score)
                     <tr>
-                        <th scope="row">{{ $loop->iteration }}</th>
+                        <th scope="row">{{ $startIndex + $loop->index }}</th>
                         <td>{{ $score->year->name }}</td>
                         <td>{{ ucfirst($score->gender) }}</td>
                         <td>{{ $score->highest_score }}</td>

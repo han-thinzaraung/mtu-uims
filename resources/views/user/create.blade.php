@@ -57,14 +57,29 @@
                                 <div class="text-danger">*{{$message}}</div>
                             @enderror
                         </div>
-                        <div class="col-auto">
+                        <!-- <div class="col-auto">
                             <label class="col-form-label">Password<small class="text-danger">*</small></label>
                             <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}">
 
                             @error('password')
                                 <div class="text-danger">*{{$message}}</div>
                             @enderror
-                        </div>
+                        </div> -->
+                        <div class="col-auto">
+                            <label class="col-form-label">Password<small class="text-danger">*</small></label>
+                            <div class="input-group">
+                                <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" onclick="togglePassword()">
+                                        <i class="fas fa-eye" id="togglePasswordIcon"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            @error('password')
+                                <div class="text-danger">*{{ $message }}</div>
+                            @enderror
+                        </div> 
                         <div class="col-auto">
                             <label class="col-form-label">Ph No.<small class="text-danger">*</small></label>
                             <input type="text" class="form-control @error('ph_no') is-invalid @enderror" name="ph_no" value="{{ old('ph_no') }}">
@@ -109,6 +124,8 @@
                                         <option value="II" {{ old('y') == 'II' ? 'selected' : '' }}>II</option>
                                         <option value="III" {{ old('y') == 'III' ? 'selected' : '' }}>III</option>
                                         <option value="IV" {{ old('y') == 'IV' ? 'selected' : '' }}>IV</option>
+                                        <option value="III" {{ old('y') == 'V' ? 'selected' : '' }}>V</option>
+                                        <option value="IV" {{ old('y') == 'VI' ? 'selected' : '' }}>VI</option>
                                     </select>
                                     <input type="text" class="form-control" value="BE" readonly>
                                     <select id="d" class="form-control @error('d') is-invalid @enderror" name="d">
@@ -118,6 +135,7 @@
                                         <option value="EC" {{ old('d') == 'EC' ? 'selected' : '' }}>EC</option>
                                         <option value="M" {{ old('d') == 'M' ? 'selected' : '' }}>M</option>
                                         <option value="Civil" {{ old('d') == 'Civil' ? 'selected' : '' }}>Civil</option>
+                                        <option value="Miniing" {{ old('d') == 'Miniing' ? 'selected' : '' }}>Miniing</option>
                                     </select>
                                     <input type="number" id="roll_number" class="form-control @error('roll_number') is-invalid @enderror" name="roll_number" value="{{ old('roll_number') }}" placeholder="Number">
 
@@ -227,6 +245,22 @@ function combineRollNo() {
     var rollNumber = document.getElementById('roll_number').value;
     document.getElementById('roll_no').value = year + '-BE-' + department + '-' + rollNumber;
 }
+
+// Open/Close Eye
+function togglePassword() {
+        const passwordField = document.getElementById('password');
+        const togglePasswordIcon = document.getElementById('togglePasswordIcon');
+
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            togglePasswordIcon.classList.remove('fa-eye');
+            togglePasswordIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordField.type = 'password';
+            togglePasswordIcon.classList.remove('fa-eye-slash');
+            togglePasswordIcon.classList.add('fa-eye');
+        }
+    }
 </script>
 
 @endsection

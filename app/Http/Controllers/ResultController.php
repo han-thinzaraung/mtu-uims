@@ -63,21 +63,12 @@ class ResultController extends Controller
      */
     public function create()
     {
-        // $users = User::all(); // Adjust the query as needed
-
-        // foreach ($users as $user) {
-        //     Mail::to($user->email)->send(new ResultNotification());
-        // }
-        
-    
 
         $departments = Department::all();
         $years = Year::all();
 
        
         return view('result.create', compact('departments', 'years'));
-
-       
 
     }
 
@@ -108,7 +99,7 @@ class ResultController extends Controller
 
         // Mail::to('myatkhine257@gmail.com')->send(new ResultNotification());
 
-         // Get the users to notify
+        // Get the users to notify
             // $users = User::all(); 
 
             // foreach ($users as $user) {

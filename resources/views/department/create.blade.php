@@ -24,7 +24,10 @@
                         </div>
                         <div class="col-auto">
                             <label  class="col-form-label">Description</label>
-                            <input type="text"  class="form-control @error('name') is-invalid @enderror" name="description" value="{{ old('description') }}">
+                            <input type="text"  class="form-control" name="description" value="{{ old('description') }}">
+                            <!-- @error('description')
+                            <div class="text-danger">*{{$message}}</div>
+                            @enderror -->
                         </div>
                        
                         <div class="col-sm mt-3">
