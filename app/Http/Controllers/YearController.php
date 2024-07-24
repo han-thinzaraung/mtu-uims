@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Year;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreYearRequest;
 use App\Http\Requests\UpdateYearRequest;
 
@@ -14,8 +16,14 @@ class YearController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function __construct()   
+    // {
+       
+    // }
+
     public function index()
     {
+        
         $years = Year::orderBy("years.id")->paginate(5);
         //$years = Year::all();
         return view('year.index',compact('years'));
@@ -28,6 +36,13 @@ class YearController extends Controller
      */
     public function create()
     {
+        //$user =Auth::user();
+        //return $user;
+        if(auth()->user()->role == '2' || auth()->user()->role == '3') {
+            return redirect('/');
+        }
+
+            
         return view('year.create');
     }
 

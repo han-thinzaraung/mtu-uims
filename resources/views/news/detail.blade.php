@@ -26,7 +26,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-2">
+                        <!-- <div class="row mb-2">
                             <div class="col-md-3">
                                 <h5>Start Date:</h5>
                             </div>
@@ -41,7 +41,25 @@
                             <div class="col-md-9">
                                 <p>{{ $news->end_date }}</p>
                             </div>
+                        </div> -->
+                        <div class="row mb-2">
+                        <div class="col-md-3">
+                            <h5>Start Date:</h5>
                         </div>
+                        <div class="col-md-9">
+                            <p>{{ $startDate }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <h5>End Date:</h5>
+                        </div>
+                        <div class="col-md-9">
+                            <p>{{ $endDate }}</p>
+                        </div>
+                    </div>
+                    
                         <div class="mb-4">
                         <div class="row">
                                 <div class="col-md-6 mb-2">

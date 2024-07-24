@@ -63,6 +63,11 @@ class ResultController extends Controller
      */
     public function create()
     {
+        //$user =Auth::user();
+        //return $user;
+        if(auth()->user()->role == '2' || auth()->user()->role == '3') {
+            return redirect('/');
+        }
 
         $departments = Department::all();
         $years = Year::all();

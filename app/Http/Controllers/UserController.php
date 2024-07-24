@@ -63,6 +63,12 @@ class UserController extends Controller
      */
     public function create()
     {
+        //$user =Auth::user();
+        //return $user;
+        if(auth()->user()->role == '2' || auth()->user()->role == '3') {
+            return redirect('/');
+        }
+
         $years = Year::all();
         $departments = Department::all();
 
@@ -87,7 +93,7 @@ class UserController extends Controller
             'roll_no' => 'nullable|string|max:255',
             'ph_no' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
-            'registration_no' => 'nullable|string|max:255',
+            'registration_no' => 'nullable|string|max:255|unique:users,registration_no',
             'position' => 'nullable|string|max:255',
             'year' => 'nullable',
             'department' => 'nullable',
@@ -170,7 +176,12 @@ class UserController extends Controller
         'roll_no' => 'nullable|string|max:255',
         'ph_no' => 'nullable|string|max:255',
         'address' => 'nullable|string|max:255',
-        'registration_no' => 'nullable|string|max:255',
+        'registration_no' => [
+            'nullable',
+            'string',
+            'max:255',
+            Rule::unique('users')->ignore($user->id),
+            ],
         'position' => 'nullable|string|max:255',
         'year_id' => 'nullable|exists:years,id',
         'department_id' => 'nullable|exists:departments,id',

@@ -51,9 +51,8 @@
                         <td class="text-center">
                             <img src="{{ asset('storage/gallery/'.$news->image) }}" alt="{{ $news->image}}" style="max-width: 50px; max-height: 50px;">
                         </td>  
-                        <td>{{ $news->start_date }}</td> 
-                        <td>{{ $news->end_date }}</td>
-              
+                        <td>{{ \Carbon\Carbon::parse($news->start_date)->format('d F, Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($news->end_date)->format('d F, Y') }}</td>
                         <td>
                         @if(auth()->user()->role == '0' || auth()->user()->role == '1')
                             <a href="{{ route('news.edit', $news->id) }}" class="btn btn-outline-warning">

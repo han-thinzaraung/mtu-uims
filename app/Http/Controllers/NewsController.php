@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -13,12 +14,25 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function index()
+    // {
+    //     $newss = News::orderBy("news.id")->paginate(5);
+    //     return view('news.index',compact('newss'));
+    // }
+
     public function index()
     {
         $newss = News::orderBy("news.id")->paginate(5);
-        return view('news.index',compact('newss'));
-    }
 
+        // Format the dates for each news item
+        $newss->getCollection()->transform(function ($news) {
+            $news->start_date = Carbon::parse($news->start_date)->format('d F, Y');
+            $news->end_date = Carbon::parse($news->end_date)->format('d F, Y');
+            return $news;
+        });
+
+        return view('news.index', compact('newss'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -26,6 +40,12 @@ class NewsController extends Controller
      */
     public function create()
     {
+        //$user =Auth::user();
+        //return $user;
+        if(auth()->user()->role == '2' || auth()->user()->role == '3') {
+            return redirect('/');
+        }
+        
         return view('news.create');
 
     }
@@ -64,7 +84,9 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        return view('news.detail',compact('news'));
+        $startDate = Carbon::parse($news->start_date)->format('d F, Y');
+        $endDate = Carbon::parse($news->end_date)->format('d F, Y');
+        return view('news.detail', compact('news', 'startDate', 'endDate'));
     }
 
     /**

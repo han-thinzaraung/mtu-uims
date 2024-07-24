@@ -1,7 +1,7 @@
 <footer class="main-footer">
     <strong>Copyright &copy; 2024  </strong>
     All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
+    <div class="float-right d-none d-sm-inline-block" id="logout-button">
       
         <a class="btn btn-dark" href="{{ route('logout') }}"
            onclick="event.preventDefault();
@@ -23,7 +23,30 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+ {{-- Google Form  START --}}
+ <script>
+  document.getElementById('logout-button').addEventListener('click', function(event) {
+      event.preventDefault();
 
+      var userRole = {{ Auth::user()->role }}; 
+
+        if (userRole == 2) {
+          var userConfirmed = confirm("Would you like to participate in satisfaction survey regarding the UIMS?");
+          
+          if (userConfirmed) {
+              // Redirect to the Google Form survey
+              window.location.href = '{{ url("/survey") }}';
+          } else {
+              // Submit the logout form
+              document.getElementById('logout-form').submit();
+          }
+      } else {
+          // Submit the logout form for non-students
+          document.getElementById('logout-form').submit();
+      }
+  });
+</script>
+{{-- Google Form END --}}
 <!-- jQuery -->
 <script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->

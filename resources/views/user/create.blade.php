@@ -73,6 +73,7 @@
                                     <span class="input-group-text" onclick="togglePassword()">
                                         <i class="fas fa-eye" id="togglePasswordIcon"></i>
                                     </span>
+                                    
                                 </div>
                             </div>
 

@@ -40,5 +40,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('news', NewsController::class);
 });
 
-
+Route::get('/survey', function () {
+    return view('survey');
+});
 
